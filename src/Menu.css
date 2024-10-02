@@ -1,0 +1,126 @@
+
+.menu-container {
+
+    font-family: 'Noto Serif Oriya', serif;
+    font-weight: 400;
+    font-size: 20px;
+    padding: 10px; /* Add padding around the menu options */
+  }
+  
+.menu-options {
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'Arial', sans-serif;
+    padding: 20px; /* Add padding around the menu options */
+    box-sizing: border-box; /* Include padding in the total width/height */
+}
+
+h2 {
+    font-size: 2.0rem;
+    margin-bottom: 20px;
+    color: #000000; /* Changed to black for better contrast */
+    font-weight: bold;
+    text-shadow:2px 2px 2px #1111119f;
+}
+
+.restaurant-list {
+    display: flex;
+    flex-direction: row; /* Stack buttons vertically */
+    align-items: center; /* Center the buttons */
+    justify-content: space-evenly;
+    gap: 5px;
+}
+
+.restaurant-btn {
+    font-family: 'Noto Serif Oriya', serif;
+
+    padding: 20px; /* Make buttons larger for better click area */
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 200px; /* Fixed width to make buttons square */
+    height: 200px; /* Fixed height to make buttons square */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer;
+    background-color: #F4C524; /* Yellow background from logo */
+    color: #000000; /* Black text color */
+    border: 2px solid #ccc; /* Light gray border */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.426); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.restaurant-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
+}
+
+.restaurant-btn:active {
+    transform: translateY(0);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Reset shadow on active */
+}
+
+.generate-code-btn {
+    padding: 15px 25px; /* Add padding for a better click area */
+    font-size: 1.2rem;
+    font-family: 'Noto Serif Oriya', serif;
+    font-weight: 400;
+    border-radius: 15px; /* Rounded corners */
+    cursor: pointer;
+    background-color: #000000; /* A vibrant purple color */
+    color: #ffffff; /* White text color */
+    border: none; /* Remove border */
+    
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+}
+
+.generate-code-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
+    background-color: #282729; /* Lighter purple on hover */
+}
+
+.generate-code-btn:active {
+    transform: translateY(0);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Reset shadow on active */
+}
+
+@media (max-width: 768px) {
+    .restaurant-btn {
+        padding: 15px; /* Adjust padding for smaller screens */
+        font-size: 1.3rem;
+        width: 150px; /* Adjust width for smaller screens */
+        height: 150px; /* Adjust height for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .restaurant-btn {
+        padding: 10px; /* Further adjust padding for extra small screens */
+        font-size: 1.1rem;
+        width: 120px; /* Further adjust width for extra small screens */
+        height: 120px; /* Further adjust height for extra small screens */
+    }
+}
+
+.phone-number-input {
+    
+    margin-top: 20px;
+    text-align: center;
+}
+
+.phone-number-field {
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.426); /* Subtle shadow */
+
+    padding: 10px;
+    font-size: 1.2rem;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    margin-bottom: 30px;
+    
+}
+
+.phone-number-field:focus {
+    border-color: #6a11cb; /* Match the color palette from your logo */
+    outline: none;
+}

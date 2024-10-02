@@ -1,38 +1,62 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  transition: padding-top 0.5s ease; /* Smooth transition for padding */
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #000000;
+  min-height: 90vh; /* Minimum height for the header */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  position: relative; /* Allows positioning of child elements */
+  padding-top: 50px;
+  transition: padding-top 0.5s ease; /* Smooth transition for padding */
+}
+
+.App-header.shrink {
+  padding-top: 2px; /* Reduced padding when logo is clicked */
+  min-height: 5vh;
+  height: 10vmin;
+
+}
+
+.App-logo {
+  height: 60vmin; /* Size of the logo */
+  pointer-events: none;
+  background-color: rgba(248, 251, 252, 0); /* Transparent background to avoid any extra visible area */
+  border-radius: 50%; /* Ensures the logo is circular */
+  animation: App-logo-glow infinite 800ms ease-in-out; /* Glowing animation */
+  display: inline-flex; /* Ensure the logo remains inline */
+  transition: transform 0.5s ease, top 0.5s ease, left 0.5s ease; /* Smooth transition for scaling and position */
+  border: 0; /* Remove any border */
+  margin: 0; /* Remove margin to avoid any extra space */
+}
+
+.App-logo.small {
+  transform: scale(0.155); /* Scale down the logo */
+  
+  top: 0; /* Place the logo exactly at the top of the screen */
+  transition: transform 0.155s ease, 0.155s ease top; /* Smooth transition for scaling and position */
+  margin-right:90vw;
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Keyframes for the glowing effect */
+@keyframes App-logo-glow {
+  0% {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3); /* Glow effect */
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.5); /* Stronger glow effect */
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3); /* Glow effect */
   }
 }
