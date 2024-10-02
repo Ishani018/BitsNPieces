@@ -116,7 +116,7 @@ function Menu() {
         <button className="restaurant-btn" onClick={() => handleRestaurantClick('South Indian')}>
           South Indian
         </button>
-        <button className="restaurant-btn" onClick={() => handleRestaurantClick('Canteena')}>
+        <button className="restaurant-btn" onClick={() => handleRestaurantClick('Cantina')}>
           Cantina
         </button>
       </div>
