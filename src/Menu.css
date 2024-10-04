@@ -58,6 +58,21 @@ h2 {
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Reset shadow on active */
 }
 
+.pay-btn{
+    padding: 15px 20px;
+    border: none;
+    outline: none;
+    background-color: #151515;
+    color: #eee;
+    border-radius: 7px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease-out;
+  
+    /* Add margin to increase spacing above the button */
+    margin-top: 30px; /* Adjust this value to increase or decrease the space */
+  }
+  
 .generate-code-btn {
     padding: 15px 25px; /* Add padding for a better click area */
     font-size: 1.2rem;

@@ -8,6 +8,8 @@ function Menu() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [order, setOrder] = useState([]);
   const [allOrders, setAllOrders] = useState([]); // Store all orders
+  const [isProcessing, setIsProcessing] = useState(false); // New state for processing payment
+  const [isOrderSubmitted, setIsOrderSubmitted] = useState(false); // New state for order submission
 
   const handleRestaurantClick = (restaurant) => {
     setSelectedRestaurant(restaurant);
@@ -15,6 +17,7 @@ function Menu() {
     setUserName(''); // Reset user name when selecting a new restaurant
     setPhoneNumber(''); // Reset phone number when selecting a new restaurant
     setOrder([]); // Reset order when selecting a new restaurant
+    setIsOrderSubmitted(false); // Reset order submission state
   };
 
   const handleNameChange = (e) => {
@@ -72,6 +75,7 @@ function Menu() {
 
     // Store the order in the list of all orders
     setAllOrders((prevOrders) => [...prevOrders, newOrder]);
+    setIsOrderSubmitted(true); // Set order submission state to true
 
     // Reset fields for the next order
     setSelectedRestaurant(null);
@@ -79,6 +83,18 @@ function Menu() {
     setPhoneNumber('');
     setUniqueCode('');
     setOrder([]);
+  };
+
+  const handlePayment = () => {
+    // Simulate a payment process
+    setIsProcessing(true); // Set processing state to true
+    window.open("https://rzp.io/rzp/uJhY941", "_blank"); // Redirect to payment link
+
+    // Simulate successful payment processing (you can replace this with actual payment logic)
+    setTimeout(() => {
+      alert("Payment Successful! Your order is being processed."); // Notify the user
+      setIsProcessing(false); // Reset processing state
+    }, 2000); // Simulate delay for payment processing
   };
 
   const restaurantMenus = {
@@ -170,6 +186,20 @@ function Menu() {
             ))}
           </ul>
           <button onClick={submitOrder} className="submit-order-btn">Submit Order</button>
+        </div>
+      )}
+
+      {/* Display the payment button after the order is submitted */}
+      {isOrderSubmitted && !isProcessing && (
+        <div className="payment-section">
+          <button onClick={handlePayment} className="pay-btn">Pay to Confirm</button>
+        </div>
+      )}
+
+      {/* Display processing message if payment is successful */}
+      {isProcessing && (
+        <div className="processing-message">
+          <h3>Your order is being processed...</h3>
         </div>
       )}
     </div>
