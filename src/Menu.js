@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './Menu.css'; // Import the Menu.css file
+import React, { useState, useEffect } from 'react';
+import './Menu.css';
 
 function Menu() {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -8,16 +8,24 @@ function Menu() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [order, setOrder] = useState([]);
   const [allOrders, setAllOrders] = useState([]); // Store all orders
-  const [isProcessing, setIsProcessing] = useState(false); // New state for processing payment
-  const [isOrderSubmitted, setIsOrderSubmitted] = useState(false); // New state for order submission
+  const [isProcessing, setIsProcessing] = useState(false); // For processing payment
+  const [isOrderSubmitted, setIsOrderSubmitted] = useState(false); // For order submission
+
+  useEffect(() => {
+    // Load orders from session storage on component mount
+    const storedOrders = sessionStorage.getItem('allOrders');
+    if (storedOrders) {
+      setAllOrders(JSON.parse(storedOrders));
+    }
+  }, []);
 
   const handleRestaurantClick = (restaurant) => {
     setSelectedRestaurant(restaurant);
-    setUniqueCode(''); // Reset unique code when selecting a new restaurant
-    setUserName(''); // Reset user name when selecting a new restaurant
-    setPhoneNumber(''); // Reset phone number when selecting a new restaurant
-    setOrder([]); // Reset order when selecting a new restaurant
-    setIsOrderSubmitted(false); // Reset order submission state
+    setUniqueCode('');
+    setUserName('');
+    setPhoneNumber('');
+    setOrder([]);
+    setIsOrderSubmitted(false);
   };
 
   const handleNameChange = (e) => {
@@ -25,25 +33,21 @@ function Menu() {
   };
 
   const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value); // Handle phone number input
+    setPhoneNumber(e.target.value);
   };
 
   const generateUniqueCode = () => {
     const phoneRegex = /^\d{10}$/;
-
     if (!selectedRestaurant || !userName || !phoneRegex.test(phoneNumber)) {
       if (!phoneRegex.test(phoneNumber)) {
         alert('Please enter a valid phone number (10 digits).');
       }
       return;
     }
-
     const prefix = selectedRestaurant === 'North Indian' ? 'NI' :
                    selectedRestaurant === 'South Indian' ? 'SI' :
                    'CA';
-
     const fourDigits = phoneNumber.replace(/\D/g, '').slice(-4);
-
     const code = `${prefix}${fourDigits}${userName.slice(0, 3).toUpperCase()}`;
     setUniqueCode(code);
   };
@@ -51,9 +55,9 @@ function Menu() {
   const handleOrderChange = (item) => {
     setOrder((prevOrder) => {
       if (prevOrder.includes(item)) {
-        return prevOrder.filter((orderItem) => orderItem !== item); // Remove the item if already in the order
+        return prevOrder.filter((orderItem) => orderItem !== item);
       } else {
-        return [...prevOrder, item]; // Add the item
+        return [...prevOrder, item];
       }
     });
   };
@@ -64,7 +68,6 @@ function Menu() {
       return;
     }
 
-    // Create an order object with all necessary details
     const newOrder = {
       code: uniqueCode,
       name: userName,
@@ -73,11 +76,14 @@ function Menu() {
       items: order
     };
 
-    // Store the order in the list of all orders
-    setAllOrders((prevOrders) => [...prevOrders, newOrder]);
-    setIsOrderSubmitted(true); // Set order submission state to true
+    setAllOrders((prevOrders) => {
+      const updatedOrders = [...prevOrders, newOrder];
+      // Store updated orders in session storage
+      sessionStorage.setItem('allOrders', JSON.stringify(updatedOrders));
+      return updatedOrders;
+    });
 
-    // Reset fields for the next order
+    setIsOrderSubmitted(true);
     setSelectedRestaurant(null);
     setUserName('');
     setPhoneNumber('');
@@ -86,15 +92,13 @@ function Menu() {
   };
 
   const handlePayment = () => {
-    // Simulate a payment process
-    setIsProcessing(true); // Set processing state to true
-    window.open("https://rzp.io/rzp/uJhY941", "_blank"); // Redirect to payment link
+    setIsProcessing(true);
+    window.open("https://rzp.io/rzp/uJhY941", "_blank");
 
-    // Simulate successful payment processing (you can replace this with actual payment logic)
     setTimeout(() => {
-      alert("Payment Successful! Your order is being processed."); // Notify the user
-      setIsProcessing(false); // Reset processing state
-    }, 2000); // Simulate delay for payment processing
+      alert("Payment Successful! Your order is being processed.");
+      setIsProcessing(false);
+    }, 2000);
   };
 
   const restaurantMenus = {
@@ -105,7 +109,6 @@ function Menu() {
 
   return (
     <div className="menu-container">
-      {/* "Your Orders" section at the top */}
       <div className="your-orders">
         <h2>Your Orders</h2>
         {allOrders.length === 0 ? (
@@ -123,7 +126,6 @@ function Menu() {
         )}
       </div>
 
-      {/* Restaurant Selection */}
       <h2>Select a Restaurant</h2>
       <div className="restaurant-list">
         <button className="restaurant-btn" onClick={() => handleRestaurantClick('North Indian')}>
@@ -137,7 +139,6 @@ function Menu() {
         </button>
       </div>
 
-      {/* Input for Name, Phone, and Generate Code */}
       {selectedRestaurant && (
         <div className="phone-number-input">
           <h3>You selected: {selectedRestaurant}</h3>
@@ -159,14 +160,12 @@ function Menu() {
         </div>
       )}
 
-      {/* Display the generated unique code */}
       {uniqueCode && (
         <div className="unique-code-display">
           <h3>Your Unique Code: {uniqueCode}</h3>
         </div>
       )}
 
-      {/* Display menu and allow item selection after the code is generated */}
       {selectedRestaurant && uniqueCode && (
         <div className="menu">
           <h3>Menu for {selectedRestaurant}</h3>
@@ -189,14 +188,12 @@ function Menu() {
         </div>
       )}
 
-      {/* Display the payment button after the order is submitted */}
       {isOrderSubmitted && !isProcessing && (
         <div className="payment-section">
           <button onClick={handlePayment} className="pay-btn">Pay to Confirm</button>
         </div>
       )}
 
-      {/* Display processing message if payment is successful */}
       {isProcessing && (
         <div className="processing-message">
           <h3>Your order is being processed...</h3>
